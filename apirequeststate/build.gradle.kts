@@ -52,8 +52,8 @@ dependencies {
 
 afterEvaluate {
     publishing {
-        (publications) {
-            register("defaultAar", MavenPublication::class.java) {
+        publications {
+            val mavenJava by creating(MavenPublication::class) {
                 from(components["release"])
                 groupId = "com.github.rmaprojects"
                 artifactId = "apirequeststate"
