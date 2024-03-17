@@ -1,5 +1,7 @@
 API Response Wrapper to Reduce Boilerplate by creating single sealed class to manage API Response State.
-Copied from [Stevdza-san](https://gist.github.com/stevdza-san/cca20eff9f2c4c7d783ffd0a0061b352). So You don't have to copy-paste again from the gist, just add this library to your dependency:
+Copied from [Stevdza-san](https://github.com/stevdza-san)'s [gist](https://gist.github.com/stevdza-san/cca20eff9f2c4c7d783ffd0a0061b352). 
+
+So You don't have to copy them again from the gist, just add this library to your dependency:
 
 ### Add jitpack to your settings.gradle
 ```Kotlin
