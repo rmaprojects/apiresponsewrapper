@@ -36,7 +36,8 @@ implementation("com.github.rmaprojects:apiresponsewrapper:<latest version here>"
 ‎ 
 ```
 
-
+# Example:
+See more on [samples](https://github.com/rmaprojects/apiresponsewrapper/tree/main/sample/src/main)
 ## Before:
 ```Kotlin
     val homeScreenState by viewModel.homeScreeState.collectAsState(initial = HomeScreenState.Idle)
