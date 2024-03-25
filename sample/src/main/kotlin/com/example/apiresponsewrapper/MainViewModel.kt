@@ -1,7 +1,7 @@
-package com.rmaprojects.apiresponsewrappersample
+package com.rmaprojects.apiresponsewrappersample.com.example.apiresponsewrapper
 
 import androidx.lifecycle.ViewModel
-import com.rmaprojects.apiresponsewrappersample.data.Repository
+import com.example.apiresponsewrapper.data.Repository
 
 class MainViewModel(
     repository: Repository

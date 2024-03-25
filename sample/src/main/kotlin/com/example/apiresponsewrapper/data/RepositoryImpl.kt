@@ -1,4 +1,4 @@
-package com.rmaprojects.apiresponsewrappersample.data
+package com.example.apiresponsewrapper.data
 
 import com.rmaprojects.apirequeststate.RequestState
 import kotlinx.coroutines.delay
