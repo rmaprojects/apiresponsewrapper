@@ -1,4 +1,4 @@
-package com.rmaprojects.apiresponsewrappersample.com.example.apiresponsewrapper
+package com.example.apiresponsewrapper
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -9,8 +9,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.apiresponsewrapper.ui.ApiResponseWrapperSampleTheme
 import com.rmaprojects.apirequeststate.RequestState
-import com.rmaprojects.apiresponsewrappersample.ui.theme.ApiResponseWrapperSampleTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

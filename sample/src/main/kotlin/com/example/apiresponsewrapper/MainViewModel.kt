@@ -1,4 +1,4 @@
-package com.rmaprojects.apiresponsewrappersample.com.example.apiresponsewrapper
+package com.example.apiresponsewrapper
 
 import androidx.lifecycle.ViewModel
 import com.example.apiresponsewrapper.data.Repository
