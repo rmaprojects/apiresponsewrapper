@@ -44,11 +44,11 @@ sealed class RequestState<out T> {
     }
 
     @Composable
-    fun DisplayResult(
+    fun DisplayResultWithNullSafety(
         onIdle: (@Composable () -> Unit)? = null,
         onLoading: @Composable () -> Unit,
-        onSuccess: @Composable () -> Unit,
-        onError: @Composable () -> Unit,
+        onSuccess: @Composable (data: T?) -> Unit,
+        onError: @Composable (message: String?) -> Unit,
     ) {
         AnimatedContent(
             targetState = this,
@@ -68,11 +68,46 @@ sealed class RequestState<out T> {
                 }
 
                 is Success -> {
-                    onSuccess()
+                    onSuccess(getSuccessDataOrNull())
                 }
 
                 is Error -> {
-                    onError()
+                    onError(getErrorMessageOrNull())
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun DisplayResult(
+        onIdle: (@Composable () -> Unit)? = null,
+        onLoading: @Composable () -> Unit,
+        onSuccess: @Composable (data: T) -> Unit,
+        onError: @Composable (message: String) -> Unit,
+    ) {
+        AnimatedContent(
+            targetState = this,
+            transitionSpec = {
+                fadeIn(tween(durationMillis = 300)) togetherWith
+                        fadeOut(tween(durationMillis = 300))
+            },
+            label = "Content Animation"
+        ) { state ->
+            when (state) {
+                is Idle -> {
+                    onIdle?.invoke()
+                }
+
+                is Loading -> {
+                    onLoading()
+                }
+
+                is Success -> {
+                    onSuccess(getSuccessData())
+                }
+
+                is Error -> {
+                    onError(getErrorMessage())
                 }
             }
         }
