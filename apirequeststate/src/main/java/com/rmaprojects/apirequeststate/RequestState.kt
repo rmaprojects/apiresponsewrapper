@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 sealed class RequestState<out T> {
     data object Idle : RequestState<Nothing>()
@@ -44,54 +45,21 @@ sealed class RequestState<out T> {
     }
 
     @Composable
-    fun DisplayResultWithNullSafety(
-        onIdle: (@Composable () -> Unit)? = null,
-        onLoading: @Composable () -> Unit,
-        onSuccess: @Composable (data: T?) -> Unit,
-        onError: @Composable (message: String?) -> Unit,
-    ) {
-        AnimatedContent(
-            targetState = this,
-            transitionSpec = {
-                fadeIn(tween(durationMillis = 300)) togetherWith
-                        fadeOut(tween(durationMillis = 300))
-            },
-            label = "Content Animation"
-        ) { state ->
-            when (state) {
-                is Idle -> {
-                    onIdle?.invoke()
-                }
-
-                is Loading -> {
-                    onLoading()
-                }
-
-                is Success -> {
-                    onSuccess(getSuccessDataOrNull())
-                }
-
-                is Error -> {
-                    onError(getErrorMessageOrNull())
-                }
-            }
-        }
-    }
-
-    @Composable
     fun DisplayResult(
+        modifier: Modifier = Modifier,
         onIdle: (@Composable () -> Unit)? = null,
         onLoading: @Composable () -> Unit,
         onSuccess: @Composable (data: T) -> Unit,
         onError: @Composable (message: String) -> Unit,
+        label: String = "Content Animation"
     ) {
         AnimatedContent(
+            modifier = modifier,
             targetState = this,
             transitionSpec = {
-                fadeIn(tween(durationMillis = 300)) togetherWith
-                        fadeOut(tween(durationMillis = 300))
+                fadeIn(tween(durationMillis = 300)) togetherWith fadeOut(tween(durationMillis = 300))
             },
-            label = "Content Animation"
+            label = label
         ) { state ->
             when (state) {
                 is Idle -> {
@@ -103,11 +71,11 @@ sealed class RequestState<out T> {
                 }
 
                 is Success -> {
-                    onSuccess(getSuccessData())
+                    onSuccess(state.data)
                 }
 
                 is Error -> {
-                    onError(getErrorMessage())
+                    onError(state.message)
                 }
             }
         }
