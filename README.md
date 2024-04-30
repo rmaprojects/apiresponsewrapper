@@ -62,10 +62,10 @@ See more on [samples](https://github.com/rmaprojects/apiresponsewrapper/tree/mai
        onLoading = {
         //Put your UI Here
       },
-        onSuccess = {
+        onSuccess = { data ->
         //Put your UI Here
       },
-        onError = {
+        onError = { errorMessage ->
         //Put your UI Here
       }
     )
