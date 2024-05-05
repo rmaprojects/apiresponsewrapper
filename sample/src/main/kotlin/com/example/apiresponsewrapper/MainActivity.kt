@@ -10,7 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.apiresponsewrapper.ui.ApiResponseWrapperSampleTheme
-import com.rmaprojects.apirequeststate.RequestState
+import com.rmaprojects.apirequeststate.ResponseState
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 
             val viewModel = viewModel<MainViewModel>()
 
-            val data = viewModel.data.collectAsState(initial = RequestState.Idle)
+            val data = viewModel.data.collectAsState(initial = ResponseState.Idle)
             ApiResponseWrapperSampleTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
