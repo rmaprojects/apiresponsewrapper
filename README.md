@@ -57,7 +57,7 @@ See more on [samples](https://github.com/rmaprojects/apiresponsewrapper/tree/mai
 ```
 ## After:
 ```Kotlin
-    val data = viewModel.data.collectAsState(initial = RequestState.Idle)
+    val data = viewModel.data.collectAsState(initial = ResponseState.Idle)
     data.value.DisplayResult(
        onLoading = {
         //Put your UI Here
