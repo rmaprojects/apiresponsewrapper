@@ -12,7 +12,9 @@ sealed class ResponseState<out T> {
     data object Idle : ResponseState<Nothing>()
     data object Loading : ResponseState<Nothing>()
     data class Success<T>(val data: T) : ResponseState<T>()
-    data class Error(val message: String) : ResponseState<Nothing>()
+    data class Error<T>(val message: String, val data: T?) : ResponseState<T>() {
+        constructor(message: String): this(message, null)
+    }
 
     fun isLoading() = this is Loading
     fun isSuccess() = this is Success
@@ -47,10 +49,10 @@ sealed class ResponseState<out T> {
     @Composable
     fun DisplayResult(
         modifier: Modifier = Modifier,
-        onIdle: (@Composable () -> Unit)? = null,
         onLoading: @Composable () -> Unit,
         onSuccess: @Composable (data: T) -> Unit,
-        onError: @Composable (message: String) -> Unit,
+        onError: @Composable (message: String, data: T?) -> Unit,
+        onIdle: (@Composable () -> Unit)? = null,
         label: String = "Content Animation"
     ) {
         AnimatedContent(
@@ -75,7 +77,7 @@ sealed class ResponseState<out T> {
                 }
 
                 is Error -> {
-                    onError(state.message)
+                    onError(state.message, state.data)
                 }
             }
         }

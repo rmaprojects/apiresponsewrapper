@@ -57,7 +57,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "com.github.rmaprojects"
                 artifactId = "apirequeststate"
-                version = "1.5"
+                version = "1.6"
             }
         }
     }
