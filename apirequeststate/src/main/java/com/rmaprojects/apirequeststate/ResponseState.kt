@@ -51,8 +51,7 @@ sealed class ResponseState<out T> {
         modifier: Modifier = Modifier,
         onLoading: @Composable () -> Unit,
         onSuccess: @Composable (data: T) -> Unit,
-        onError: @Composable (String) -> Unit,
-        onErrorWithData: (@Composable (message: String, data: T?) -> Unit)? = null,
+        onError: @Composable (message: String) -> Unit,
         onIdle: (@Composable () -> Unit)? = null,
         label: String = "Content Animation"
     ) {
@@ -78,7 +77,42 @@ sealed class ResponseState<out T> {
                 }
                 is Error -> {
                     onError(state.message)
-                    onErrorWithData?.invoke(state.message, state.data)
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun DisplayResult(
+        modifier: Modifier = Modifier,
+        onLoading: @Composable () -> Unit,
+        onSuccess: @Composable (data: T) -> Unit,
+        onErrorWithData: @Composable (message: String, data: T?) -> Unit,
+        onIdle: (@Composable () -> Unit)? = null,
+        label: String = "Content Animation"
+    ) {
+        AnimatedContent(
+            modifier = modifier,
+            targetState = this,
+            transitionSpec = {
+                fadeIn(tween(durationMillis = 300)) togetherWith fadeOut(tween(durationMillis = 300))
+            },
+            label = label
+        ) { state ->
+            when (state) {
+                is Idle -> {
+                    onIdle?.invoke()
+                }
+
+                is Loading -> {
+                    onLoading()
+                }
+
+                is Success -> {
+                    onSuccess(state.data)
+                }
+                is Error -> {
+                    onErrorWithData.invoke(state.message, state.data)
                 }
             }
         }
