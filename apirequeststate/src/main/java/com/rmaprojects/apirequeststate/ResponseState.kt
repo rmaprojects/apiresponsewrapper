@@ -51,7 +51,7 @@ sealed class ResponseState<out T> {
         modifier: Modifier = Modifier,
         onLoading: @Composable () -> Unit,
         onSuccess: @Composable (data: T) -> Unit,
-        onError: (String) -> Unit,
+        onError: @Composable (String) -> Unit,
         onErrorWithData: (@Composable (message: String, data: T?) -> Unit)? = null,
         onIdle: (@Composable () -> Unit)? = null,
         label: String = "Content Animation"
