@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                         onSuccess = {
                             //TODO Put your UI Here
                         },
-                        onError = { message, _ ->
+                        onError = {
                             //TODO Put your UI Here
                         }
                     )

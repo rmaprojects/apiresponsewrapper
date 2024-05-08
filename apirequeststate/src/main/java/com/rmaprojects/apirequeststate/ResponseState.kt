@@ -51,7 +51,8 @@ sealed class ResponseState<out T> {
         modifier: Modifier = Modifier,
         onLoading: @Composable () -> Unit,
         onSuccess: @Composable (data: T) -> Unit,
-        onError: @Composable (message: String, T?) -> Unit,
+        onError: (String) -> Unit,
+        onErrorWithData: (@Composable (message: String, data: T?) -> Unit)? = null,
         onIdle: (@Composable () -> Unit)? = null,
         label: String = "Content Animation"
     ) {
@@ -75,9 +76,9 @@ sealed class ResponseState<out T> {
                 is Success -> {
                     onSuccess(state.data)
                 }
-
                 is Error -> {
-                    onError(state.message, state.data)
+                    onError(state.message)
+                    onErrorWithData?.invoke(state.message, state.data)
                 }
             }
         }
