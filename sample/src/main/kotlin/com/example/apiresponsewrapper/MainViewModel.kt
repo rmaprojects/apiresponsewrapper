@@ -5,7 +5,6 @@ import com.example.apiresponsewrapper.data.Repository
 
 class MainViewModel(
     repository: Repository
-): ViewModel() {
-
+) : ViewModel() {
     val data = repository.getData()
 }

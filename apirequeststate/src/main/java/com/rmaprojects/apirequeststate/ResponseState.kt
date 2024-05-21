@@ -1,5 +1,6 @@
 package com.rmaprojects.apirequeststate
 
+import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -13,7 +14,7 @@ sealed class ResponseState<out T> {
     data object Loading : ResponseState<Nothing>()
     data class Success<T>(val data: T) : ResponseState<T>()
     data class Error<T>(val message: String, val data: T?) : ResponseState<T>() {
-        constructor(message: String): this(message, null)
+        constructor(message: String) : this(message, null)
     }
 
     fun isLoading() = this is Loading
@@ -75,6 +76,7 @@ sealed class ResponseState<out T> {
                 is Success -> {
                     onSuccess(state.data)
                 }
+
                 is Error -> {
                     onError(state.message)
                 }
@@ -111,7 +113,14 @@ sealed class ResponseState<out T> {
                 is Success -> {
                     onSuccess(state.data)
                 }
+
                 is Error -> {
+                    if (state.data == null) {
+                        Log.w(
+                            "RESPONSE_STATE_ERROR_DATA",
+                            "Error Data you got is ${state.data}, maybe you forgot to insert the data to Error(\"Your message\", yourData)?"
+                        )
+                    }
                     onErrorWithData.invoke(state.message, state.data)
                 }
             }
